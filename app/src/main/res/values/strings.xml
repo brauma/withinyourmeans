@@ -1,5 +1,12 @@
 <resources>
     <string name="app_name">Within Your Means</string>
+    <string name="add_expense">Add Expense</string>
+    <string name="add_button_text">Add</string>
+    <string name="lbl_amount">Amount</string>
+    <string name="lbl_name">Name</string>
+    <string name="lbl_description">Description</string>
+    <string name="lbl_category">Category</string>
+
     <string-array name="category">
         <item>Food</item>
         <item>Bill</item>

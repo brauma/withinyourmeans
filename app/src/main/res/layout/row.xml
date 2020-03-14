@@ -29,6 +29,7 @@
                 android:id="@+id/cat_icon"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
+                android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_margin="20dp"
@@ -39,19 +40,31 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#fff"
-                android:text="2302 Ft"
+                android:layout_marginStart="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
                 android:includeFontPadding="false"
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/description"
+                android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#fff"
                 android:layout_below="@id/amount"
-                android:text="Élelmiszer"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:includeFontPadding="false"
+                android:textSize="14sp"
+                />
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#888"
+                android:layout_below="@id/name"
+                android:layout_marginStart="20dp"
                 android:layout_marginLeft="20dp"
                 android:includeFontPadding="false"
                 android:textSize="14sp"

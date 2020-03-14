@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent"
     android:layout_width="match_parent">
 
@@ -17,8 +16,9 @@
                 android:id="@+id/lbl_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Amount"
+                android:text="@string/lbl_amount"
                 android:layout_marginTop="30dp"
+                android:layout_marginStart="30dp"
                 android:layout_marginLeft="30dp"
                 />
 
@@ -38,9 +38,10 @@
                 android:id="@+id/lbl_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Name"
+                android:text="@string/lbl_name"
                 android:layout_below="@id/amount_textview"
                 android:layout_marginTop="30dp"
+                android:layout_marginStart="30dp"
                 android:layout_marginLeft="30dp"
                 />
 
@@ -58,9 +59,10 @@
                 android:id="@+id/lbl_desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Description"
+                android:text="@string/lbl_description"
                 android:layout_below="@id/name_textview"
                 android:layout_marginTop="30dp"
+                android:layout_marginStart="30dp"
                 android:layout_marginLeft="30dp"
                 />
 
@@ -78,9 +80,10 @@
                 android:id="@+id/lbl_category"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Category"
+                android:text="@string/lbl_category"
                 android:layout_below="@id/desc_textview"
                 android:layout_marginTop="30dp"
+                android:layout_marginStart="30dp"
                 android:layout_marginLeft="30dp"
                 />
 
@@ -98,7 +101,7 @@
                 android:id="@+id/button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hozzáad"
+                android:text="@string/add_button_text"
                 android:layout_below="@id/spinner"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="15dp"

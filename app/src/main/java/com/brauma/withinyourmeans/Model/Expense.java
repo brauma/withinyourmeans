@@ -1,4 +1,4 @@
-package com.brauma.withinyourmeans;
+package com.brauma.withinyourmeans.Model;
 
 public class Expense {
     int _id;

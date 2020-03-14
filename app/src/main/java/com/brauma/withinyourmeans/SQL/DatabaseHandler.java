@@ -1,10 +1,12 @@
-package com.brauma.withinyourmeans;
+package com.brauma.withinyourmeans.SQL;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.brauma.withinyourmeans.Model.Expense;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,8 +62,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-    public List<Expense> getExpenses(){
-        List<Expense> expensesList = new ArrayList<Expense>();
+    public ArrayList<Expense> getExpenses(){
+        ArrayList<Expense> expensesList = new ArrayList<Expense>();
         // Select All Query
         String selectQuery = "SELECT  * FROM " + TABLE_NAME;
 

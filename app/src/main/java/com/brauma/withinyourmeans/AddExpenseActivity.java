@@ -5,17 +5,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
+import com.brauma.withinyourmeans.Model.Expense;
+import com.brauma.withinyourmeans.SQL.DatabaseHandler;
 
-public class NewDataActivity extends AppCompatActivity {
+public class AddExpenseActivity extends AppCompatActivity {
     private DatabaseHandler myDb;
 
     @Override
@@ -40,7 +39,7 @@ public class NewDataActivity extends AppCompatActivity {
 
                 EditText amountText = (EditText) findViewById(R.id.amount_textview);
                 if (amountText.getText().toString().isEmpty()) {
-                    Toast.makeText(NewDataActivity.this, "You have to specify the amount", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddExpenseActivity.this, "You have to specify the amount", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -48,7 +47,7 @@ public class NewDataActivity extends AppCompatActivity {
 
                 EditText nameText = (EditText) findViewById(R.id.name_textview);
                 if (nameText.getText().toString().isEmpty()) {
-                    Toast.makeText(NewDataActivity.this, "You have to specify a name", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddExpenseActivity.this, "You have to specify a name", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -63,7 +62,7 @@ public class NewDataActivity extends AppCompatActivity {
 
                 Spinner spinner = (Spinner) findViewById(R.id.spinner);
                 if (spinner.getSelectedItem().toString().isEmpty()) {
-                    Toast.makeText(NewDataActivity.this, "You have to specify a category", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddExpenseActivity.this, "You have to specify a category", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 category = spinner.getSelectedItem().toString();
@@ -77,7 +76,7 @@ public class NewDataActivity extends AppCompatActivity {
                     finish();
                 } else {
                     Log.e("DB", "nem sikerült");
-                    Toast.makeText(NewDataActivity.this, "Unexpected error with the database", Toast.LENGTH_LONG).show();
+                    Toast.makeText(AddExpenseActivity.this, "Unexpected error with the database", Toast.LENGTH_LONG).show();
                 }
 
             }
