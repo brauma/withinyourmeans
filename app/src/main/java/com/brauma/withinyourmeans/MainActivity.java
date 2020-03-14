@@ -76,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("ERROR", String.valueOf(viewHolder.getAdapterPosition()));
                 expenses.remove(viewHolder.getAdapterPosition());
                 adapter.swapDataSets(myDb.getExpenses());
-
             }
 
             @Override

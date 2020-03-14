@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">A Kereten Belül</string>
+    <string name="add_expense">Kiadás Hozzáadása</string>
+    <string name="add_button_text">Hozzáadás</string>
+    <string name="lbl_amount">Összeg</string>
+    <string name="lbl_name">Megnevezés</string>
+    <string name="lbl_description">Leírás</string>
+    <string name="lbl_category">Kategória</string>
+
+    <string-array name="category">
+        <item>Étel</item>
+        <item>Számla</item>
+        <item>Bérleti díj</item>
+        <item>Alkohol</item>
+        <item>Dohány</item>
+        <item>Nasi</item>
+        <item>Ruházat</item>
+    </string-array>
+</resources>

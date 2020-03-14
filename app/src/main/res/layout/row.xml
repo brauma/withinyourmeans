@@ -44,7 +44,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
                 android:includeFontPadding="false"
-                android:textSize="20sp" />
+                android:textSize="25sp" />
 
             <TextView
                 android:id="@+id/name"
@@ -55,15 +55,16 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginLeft="20dp"
                 android:includeFontPadding="false"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 />
 
             <TextView
                 android:id="@+id/description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#888"
+                android:textColor="#fff"
                 android:layout_below="@id/name"
+                android:layout_marginTop="10dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginLeft="20dp"
                 android:includeFontPadding="false"
