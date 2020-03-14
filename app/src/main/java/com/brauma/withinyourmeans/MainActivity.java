@@ -2,6 +2,7 @@ package com.brauma.withinyourmeans;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,11 +16,12 @@ import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private DatabaseHandler myDb;
-    private static RecyclerView.Adapter adapter;
+    private static RVAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private static RecyclerView recyclerView;
 
@@ -38,10 +40,9 @@ public class MainActivity extends AppCompatActivity {
 
         myOnClickListener = new MyOnClickListener(this);
 
+        layoutManager = new LinearLayoutManager(this);
         recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
         recyclerView.setHasFixedSize(true);
-
-        layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
@@ -56,32 +57,51 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        data = new ArrayList<>();
         expenses = (ArrayList) myDb.getExpenses();
+        data = (ArrayList) getDataModel(expenses);
 
-        for (int i = 0; i < expenses.size(); i++) {
-            data.add(new DataModel(
-                    expenses.get(i).get_amount(),
-                    expenses.get(i).get_description(),
-                    expenses.get(i).get_id(),
-                    getCategoryIcon(expenses.get(i).get_category())
-            ));
-        }
 
-        /*
-        for (int i = 0; i < MyData.amountArray.length; i++) {
-            data.add(new DataModel(
-                    MyData.amountArray[i],
-                    MyData.descArray[i],
-                    MyData.id_[i],
-                    MyData.drawableArray[i])
-            );
-        }*/
-
-        Log.e("DATA SIZE", String.format("value = %d", expenses.size()));
+        //TODO fix this shit with the data and expenses
 
         adapter = new RVAdapter(data);
         recyclerView.setAdapter(adapter);
+
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
+                myDb.deleteData(expenses.get(viewHolder.getAdapterPosition()));
+                data.remove(viewHolder.getAdapterPosition());
+                expenses.remove(viewHolder.getAdapterPosition());
+                //adapter.swapDataSets(data);
+
+                adapter.notifyItemRemoved(viewHolder.getAdapterPosition());
+                adapter.notifyItemRangeChanged(viewHolder.getAdapterPosition(), adapter.getItemCount());
+
+            }
+
+            @Override
+            public void onMoved(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, int fromPos, RecyclerView.ViewHolder target, int toPos, int x, int y) {
+                super.onMoved(recyclerView, viewHolder, fromPos, target, toPos, x, y);
+            }
+        };
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        expenses = (ArrayList) myDb.getExpenses();
+        data = (ArrayList) getDataModel(expenses);
+        adapter.swapDataSets(data);
+        adapter.notifyDataSetChanged();
     }
 
     // This runs when you tap on an item on the list
@@ -110,5 +130,19 @@ public class MainActivity extends AppCompatActivity {
             case "Clothing": return R.drawable.ic_clothing;
             default: return R.drawable.ic_food;
         }
+    }
+
+    private List<DataModel> getDataModel(List<Expense> expenses){
+        data = new ArrayList<>();
+
+        for (int i = 0; i < expenses.size(); i++) {
+            data.add(new DataModel(
+                    expenses.get(i).get_amount(),
+                    expenses.get(i).get_description(),
+                    expenses.get(i).get_id(),
+                    getCategoryIcon(expenses.get(i).get_category())
+            ));
+        }
+        return data;
     }
 }

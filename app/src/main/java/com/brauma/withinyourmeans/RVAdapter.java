@@ -16,8 +16,12 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder> {
 
     private ArrayList<DataModel> dataSet;
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
+    public void swapDataSets(ArrayList<DataModel> data) {
+        this.dataSet = (ArrayList) dataSet;
+        notifyDataSetChanged();
+    }
 
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
         TextView tvAmount;
         TextView tvDesc;
         ImageView categoryIcon;
@@ -65,7 +69,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder> {
         tvDesc.setText(dataSet.get(listPosition).getDescription());
         categoryIcon.setImageResource(dataSet.get(listPosition).getCategoryIcon());
 
-        switch(category){
+        switch (category) {
             case R.drawable.ic_food:
                 cardView.setCardBackgroundColor(cardView.getResources().getColor(R.color.colorFood));
                 break;
@@ -87,7 +91,8 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder> {
             case R.drawable.ic_rent:
                 cardView.setCardBackgroundColor(cardView.getResources().getColor(R.color.colorRent));
                 break;
-            default: break;
+            default:
+                break;
         }
     }
 

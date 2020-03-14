@@ -14,22 +14,10 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/title_textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Add expense"
-                android:textSize="30sp"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="15dp"
-                />
-
-            <TextView
                 android:id="@+id/lbl_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Amount"
-                android:layout_below="@id/title_textView"
                 android:layout_marginTop="30dp"
                 android:layout_marginLeft="30dp"
                 />

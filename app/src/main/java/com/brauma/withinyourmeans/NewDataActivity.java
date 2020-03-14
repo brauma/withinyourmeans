@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -32,28 +33,53 @@ public class NewDataActivity extends AppCompatActivity {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Integer amount = null;
+                String name = null;
+                String description = null;
+                String category = null;
 
                 EditText amountText = (EditText) findViewById(R.id.amount_textview);
-                int amount = Integer.parseInt(amountText.getText().toString());
+                if (amountText.getText().toString().isEmpty()) {
+                    Toast.makeText(NewDataActivity.this, "You have to specify the amount", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                amount = Integer.parseInt(amountText.getText().toString());
 
                 EditText nameText = (EditText) findViewById(R.id.name_textview);
-                String name = nameText.getText().toString();
+                if (nameText.getText().toString().isEmpty()) {
+                    Toast.makeText(NewDataActivity.this, "You have to specify a name", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                name = nameText.getText().toString();
 
                 EditText descText = (EditText) findViewById(R.id.desc_textview);
-                String description = descText.getText().toString();
+                if (!descText.getText().toString().isEmpty()) {
+                    description = descText.getText().toString();
+                } else {
+                    return;
+                }
 
                 Spinner spinner = (Spinner) findViewById(R.id.spinner);
-                String category = spinner.getSelectedItem().toString();
+                if (spinner.getSelectedItem().toString().isEmpty()) {
+                    Toast.makeText(NewDataActivity.this, "You have to specify a category", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                category = spinner.getSelectedItem().toString();
 
                 Expense e = new Expense(amount, name, category, description);
+
                 boolean success = myDb.insertData(e);
 
-                if(success){
+                if (success) {
                     Log.e("DB", "sikerült");
-                }
-                else{
+                    finish();
+                } else {
                     Log.e("DB", "nem sikerült");
+                    Toast.makeText(NewDataActivity.this, "Unexpected error with the database", Toast.LENGTH_LONG).show();
                 }
+
             }
         });
     }

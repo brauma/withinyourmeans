@@ -45,11 +45,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         contentValues.put(KEY_CATEGORY, expense.get_category());
         contentValues.put(KEY_AMOUNT, expense.get_amount());
         long result = db.insert(TABLE_NAME, null, contentValues);
+        db.close();
 
         if(result != -1){
             return true;
         }
         return false;
+    }
+
+    public void deleteData(Expense expense){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME, KEY_ID + " = ?",
+                new String[] { String.valueOf(expense.get_id()) });
+        db.close();
     }
 
     public List<Expense> getExpenses(){
@@ -73,7 +81,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 expensesList.add(expense);
             } while (cursor.moveToNext());
         }
-
+        cursor.close();
+        db.close();
         // return contact list
         return expensesList;
     }
