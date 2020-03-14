@@ -32,34 +32,28 @@ public class NewDataActivity extends AppCompatActivity {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e(" ONCLICK", " ide bejutott");
-
 
                 EditText amountText = (EditText) findViewById(R.id.amount_textview);
                 int amount = Integer.parseInt(amountText.getText().toString());
 
-
                 EditText nameText = (EditText) findViewById(R.id.name_textview);
                 String name = nameText.getText().toString();
-
-
 
                 EditText descText = (EditText) findViewById(R.id.desc_textview);
                 String description = descText.getText().toString();
 
-
-
                 Spinner spinner = (Spinner) findViewById(R.id.spinner);
                 String category = spinner.getSelectedItem().toString();
-                Log.e("GOTTEN VALUES: ", category);
 
-                /*
-                Log.e("GOTTENS: ",  "valami itt nem jó");
-
-                /*
                 Expense e = new Expense(amount, name, category, description);
-                myDb.insertData(e);
-                */
+                boolean success = myDb.insertData(e);
+
+                if(success){
+                    Log.e("DB", "sikerült");
+                }
+                else{
+                    Log.e("DB", "nem sikerült");
+                }
             }
         });
     }

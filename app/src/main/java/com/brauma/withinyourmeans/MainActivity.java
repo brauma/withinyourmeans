@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
         data = new ArrayList<>();
         expenses = (ArrayList) myDb.getExpenses();
 
-        /*
         for (int i = 0; i < expenses.size(); i++) {
             data.add(new DataModel(
                     expenses.get(i).get_amount(),
@@ -68,7 +67,8 @@ public class MainActivity extends AppCompatActivity {
                     getCategoryIcon(expenses.get(i).get_category())
             ));
         }
-        */
+
+        /*
         for (int i = 0; i < MyData.amountArray.length; i++) {
             data.add(new DataModel(
                     MyData.amountArray[i],
@@ -76,9 +76,9 @@ public class MainActivity extends AppCompatActivity {
                     MyData.id_[i],
                     MyData.drawableArray[i])
             );
-        }
+        }*/
 
-        Log.e("DATA SIZE", String.format("value = %d", data.size()));
+        Log.e("DATA SIZE", String.format("value = %d", expenses.size()));
 
         adapter = new RVAdapter(data);
         recyclerView.setAdapter(adapter);

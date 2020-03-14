@@ -11,7 +11,7 @@ public class DataModel {
         this.amount = amount;
         this.description = description;
         this.id_ = id_;
-        this.image=image;
+        this.image = image;
     }
 
     public int getAmount() {
