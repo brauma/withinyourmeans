@@ -56,9 +56,7 @@ public class AddExpenseActivity extends AppCompatActivity {
                 EditText descText = (EditText) findViewById(R.id.desc_textview);
                 if (!descText.getText().toString().isEmpty()) {
                     description = descText.getText().toString();
-                } else {
-                    return;
-                }
+                } 
 
                 Spinner spinner = (Spinner) findViewById(R.id.spinner);
                 if (spinner.getSelectedItem().toString().isEmpty()) {
