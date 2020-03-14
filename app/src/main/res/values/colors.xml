@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#68829e</color>
+    <color name="colorPrimaryDark">#505160</color>
+    <color name="colorAccent">#c4dfe6</color>
+    <color name="colorFood">#2e4600</color>
+    <color name="colorBadFood">#5bc8ac</color>
+    <color name="colorBill">#505160</color>
+    <color name="colorRent">#ffbb00</color>
+    <color name="colorClothing">#46211a</color>
+    <color name="colorSmoking">#a43820</color>
+    <color name="colorBooze">#ba5536</color>
+</resources>
