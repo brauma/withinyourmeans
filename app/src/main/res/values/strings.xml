@@ -1,3 +1,12 @@
 <resources>
-    <string name="app_name">WithinYourMeans</string>
+    <string name="app_name">Within Your Means</string>
+    <string-array name="category">
+        <item>Food</item>
+        <item>Bill</item>
+        <item>Rent</item>
+        <item>Alcohol</item>
+        <item>Tobacco</item>
+        <item>Unhealthy Food</item>
+        <item>Clothing</item>
+    </string-array>
 </resources>
