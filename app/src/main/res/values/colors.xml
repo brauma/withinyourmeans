@@ -3,7 +3,7 @@
     <color name="colorPrimary">#68829e</color>
     <color name="colorPrimaryDark">#505160</color>
     <color name="colorAccent">#c4dfe6</color>
-    <color name="colorBackground">#F0EAD6</color>
+    <color name="colorBackground">#FFFFFF</color>
     <color name="colorFood">#2e4600</color>
     <color name="colorBadFood">#5bc8ac</color>
     <color name="colorBill">#505160</color>

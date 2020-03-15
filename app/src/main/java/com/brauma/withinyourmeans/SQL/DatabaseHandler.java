@@ -9,17 +9,16 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.brauma.withinyourmeans.Model.Expense;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "wym.db";
     private static final String TABLE_NAME= "expenses";
     private static final String KEY_ID = "id";
     private static final String KEY_NAME = "name";
-    private static final String KEY_DESC = "description";
     private static final String KEY_AMOUNT = "amount";
     private static final String KEY_CATEGORY = "category";
+    private static final String KEY_DATE = "date";
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -29,7 +28,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_NAME + "("
                 + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_NAME + " TEXT,"
-                + KEY_DESC + " TEXT," + KEY_CATEGORY + " TEXT," + KEY_AMOUNT + " INTEGER" + ")";
+                + KEY_CATEGORY + " TEXT," + KEY_AMOUNT + " INTEGER," + KEY_DATE + " INTEGER)";
         db.execSQL(CREATE_CONTACTS_TABLE);
     }
 
@@ -43,9 +42,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(KEY_NAME, expense.get_name());
-        contentValues.put(KEY_DESC, expense.get_description());
         contentValues.put(KEY_CATEGORY, expense.get_category());
         contentValues.put(KEY_AMOUNT, expense.get_amount());
+        contentValues.put(KEY_DATE, expense.get_date());
         long result = db.insert(TABLE_NAME, null, contentValues);
         db.close();
 
@@ -76,9 +75,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 Expense expense = new Expense();
                 expense.set_id(Integer.parseInt(cursor.getString(0)));
                 expense.set_name(cursor.getString(1));
-                expense.set_description(cursor.getString(2));
-                expense.set_category(cursor.getString(3));
-                expense.set_amount(cursor.getInt(4));
+                expense.set_category(cursor.getString(2));
+                expense.set_amount(cursor.getInt(3));
+                expense.set_date(cursor.getLong(4));
+
                 // Adding contact to list
                 expensesList.add(expense);
             } while (cursor.moveToNext());
@@ -87,5 +87,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
         // return contact list
         return expensesList;
+    }
+
+    //TODO ezt valahogy megcsinálni
+    public int getSumByDate(int year, int month){
+
+        String selectQuery = "SELECT SUM(" + KEY_AMOUNT + ") FROM " + TABLE_NAME + " WHERE ";
+        return 0;
     }
 }

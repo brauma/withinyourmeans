@@ -2,19 +2,25 @@ package com.brauma.withinyourmeans;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.brauma.withinyourmeans.Model.Expense;
 import com.brauma.withinyourmeans.SQL.DatabaseHandler;
 
-public class AddExpenseActivity extends AppCompatActivity {
+import java.util.Calendar;
+import com.brauma.withinyourmeans.Utility.DateHelper;
+
+public class AddExpenseActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     private DatabaseHandler myDb;
 
     @Override
@@ -28,18 +34,27 @@ public class AddExpenseActivity extends AppCompatActivity {
 
         myDb = new DatabaseHandler(this);
 
+        TextView dateText = (TextView) findViewById(R.id.date_textview);
+
+        dateText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog();
+            }
+        });
+
         Button add = (Button) findViewById(R.id.button);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Integer amount = null;
                 String name = null;
-                String description = null;
+                Long date = null;
                 String category = null;
 
                 EditText amountText = (EditText) findViewById(R.id.amount_textview);
                 if (amountText.getText().toString().isEmpty()) {
-                    Toast.makeText(AddExpenseActivity.this, "You have to specify the amount", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddExpenseActivity.this, AddExpenseActivity.this.getString(R.string.error_amount), Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -47,25 +62,29 @@ public class AddExpenseActivity extends AppCompatActivity {
 
                 EditText nameText = (EditText) findViewById(R.id.name_textview);
                 if (nameText.getText().toString().isEmpty()) {
-                    Toast.makeText(AddExpenseActivity.this, "You have to specify a name", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddExpenseActivity.this, AddExpenseActivity.this.getString(R.string.error_name), Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 name = nameText.getText().toString();
 
-                EditText descText = (EditText) findViewById(R.id.desc_textview);
-                if (!descText.getText().toString().isEmpty()) {
-                    description = descText.getText().toString();
-                } 
+                TextView dateText = (TextView) findViewById(R.id.date_textview);
+
+                if (!dateText.getText().toString().equals(getResources().getString(R.string.date_text))) {
+                    date = DateHelper.strDateToEpoch(dateText.getText().toString());
+                } else {
+                    date = DateHelper.dateToEpoch(Calendar.getInstance().getTime());
+                }
+
+                Log.e("DATE ORIGINAL", Calendar.getInstance().getTime().toString());
 
                 Spinner spinner = (Spinner) findViewById(R.id.spinner);
                 if (spinner.getSelectedItem().toString().isEmpty()) {
-                    Toast.makeText(AddExpenseActivity.this, "You have to specify a category", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 category = spinner.getSelectedItem().toString();
 
-                Expense e = new Expense(amount, name, category, description);
+                Expense e = new Expense(amount, name, category, date);
 
                 boolean success = myDb.insertData(e);
 
@@ -74,11 +93,27 @@ public class AddExpenseActivity extends AppCompatActivity {
                     finish();
                 } else {
                     Log.e("DB", "nem sikerült");
-                    Toast.makeText(AddExpenseActivity.this, "Unexpected error with the database", Toast.LENGTH_LONG).show();
+                    Toast.makeText(AddExpenseActivity.this, AddExpenseActivity.this.getString(R.string.error_database), Toast.LENGTH_LONG).show();
                 }
 
             }
         });
     }
 
+    private void showDatePickerDialog() {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                this,
+                this,
+                Calendar.getInstance().get(Calendar.YEAR),
+                Calendar.getInstance().get(Calendar.MONTH),
+                Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+        );
+        datePickerDialog.show();
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        TextView dateText = (TextView) findViewById(R.id.date_textview);
+        dateText.setText(year+"-"+month+"-"+dayOfMonth);
+    }
 }

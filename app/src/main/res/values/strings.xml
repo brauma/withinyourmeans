@@ -4,8 +4,13 @@
     <string name="add_button_text">Add</string>
     <string name="lbl_amount">Amount</string>
     <string name="lbl_name">Name</string>
-    <string name="lbl_description">Description</string>
+    <string name="lbl_description">Date</string>
     <string name="lbl_category">Category</string>
+
+    <string name="error_amount">You have to specify the amount</string>
+    <string name="error_name">You have to specify a name</string>
+    <string name="error_database">Unexpected error with the database</string>
+    <string name="date_text">Tap here to change date from today</string>
 
     <string-array name="category">
         <item>Food</item>

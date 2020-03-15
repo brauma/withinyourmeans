@@ -4,8 +4,13 @@
     <string name="add_button_text">Hozzáadás</string>
     <string name="lbl_amount">Összeg</string>
     <string name="lbl_name">Megnevezés</string>
-    <string name="lbl_description">Leírás</string>
+    <string name="lbl_description">Dátum</string>
     <string name="lbl_category">Kategória</string>
+
+    <string name="error_amount">Meg kell adnod összeget</string>
+    <string name="error_name">Meg kell adnod megnevezést</string>
+    <string name="error_database">Váratlan adatbázis hiba</string>
+    <string name="date_text">Bökj ide, hogy megváltoztasd a dátumot máról</string>
 
     <string-array name="category">
         <item>Étel</item>

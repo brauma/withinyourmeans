@@ -5,15 +5,15 @@ public class Expense {
     int _amount;
     String _name;
     String _category;
-    String _description;
+    long _date;
 
     public Expense(){}
 
-    public Expense(int amount, String name, String category, String description){
+    public Expense(int amount, String name, String category, long date){
         this._amount = amount;
         this._name = name;
         this._category = category;
-        this._description = description;
+        this._date = date;
     }
 
     public int get_id() {
@@ -48,11 +48,11 @@ public class Expense {
         this._category = _category;
     }
 
-    public String get_description() {
-        return _description;
+    public long get_date() {
+        return _date;
     }
 
-    public void set_description(String _description) {
-        this._description = _description;
+    public void set_date(long date) {
+        this._date = date;
     }
 }

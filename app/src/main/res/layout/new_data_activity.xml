@@ -60,7 +60,7 @@
                 />
 
             <TextView
-                android:id="@+id/lbl_desc"
+                android:id="@+id/lbl_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/lbl_description"
@@ -70,12 +70,17 @@
                 android:layout_marginLeft="25dp"
                 />
 
-            <EditText
-                android:id="@+id/desc_textview"
+            <TextView
+                android:id="@+id/date_textview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/lbl_desc"
+                android:layout_below="@id/lbl_date"
                 android:layout_marginTop="10dp"
+                android:text="@string/date_text"
+                android:textColor="#999"
+                android:textSize="14sp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginStart="20dp"
@@ -87,7 +92,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/lbl_category"
-                android:layout_below="@id/desc_textview"
+                android:layout_below="@id/date_textview"
                 android:layout_marginTop="30dp"
                 android:layout_marginStart="25dp"
                 android:layout_marginLeft="25dp"

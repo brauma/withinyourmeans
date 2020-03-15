@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.brauma.withinyourmeans.MainActivity;
 import com.brauma.withinyourmeans.Model.Expense;
 import com.brauma.withinyourmeans.R;
+import com.brauma.withinyourmeans.Utility.DateHelper;
 
 import java.util.ArrayList;
 
@@ -38,7 +39,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder> {
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         TextView tvAmount;
         TextView tvName;
-        TextView tvDesc;
+        TextView tvDate;
         ImageView categoryIcon;
         CardView cardView;
 
@@ -46,7 +47,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder> {
             super(itemView);
             this.tvName = (TextView) itemView.findViewById(R.id.name);
             this.tvAmount = (TextView) itemView.findViewById(R.id.amount);
-            this.tvDesc = (TextView) itemView.findViewById(R.id.description);
+            this.tvDate= (TextView) itemView.findViewById(R.id.date);
             this.categoryIcon = (ImageView) itemView.findViewById(R.id.cat_icon);
             this.cardView = (CardView) itemView.findViewById(R.id.card_view);
         }
@@ -68,16 +69,17 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder> {
     public void onBindViewHolder(final MyViewHolder holder, final int listPosition) {
 
         TextView tvAmount = holder.tvAmount;
-        TextView tvDesc = holder.tvDesc;
+        TextView tvDate = holder.tvDate;
         TextView tvName = holder.tvName;
         ImageView categoryIcon = holder.categoryIcon;
         CardView cardView = holder.cardView;
 
-        Log.e("DATA SET", String.format("value = %d", dataSet.get(listPosition).get_amount()));
 
         tvAmount.setText(String.format("%d Ft", dataSet.get(listPosition).get_amount()));
         tvName.setText(dataSet.get(listPosition).get_name());
-        tvDesc.setText(dataSet.get(listPosition).get_description());
+        tvDate.setText(DateHelper.epochToStrDate(dataSet.get(listPosition).get_date()));
+        Log.e("DATE EPOCH", String.valueOf(dataSet.get(listPosition).get_date()));
+        Log.e("DATE STRING", DateHelper.epochToStrDate(dataSet.get(listPosition).get_date()));
         categoryIcon.setImageResource(getCategoryIcon(dataSet.get(listPosition).get_category()));
 
         setBackgroundColorByCategory(cardView, dataSet.get(listPosition).get_category());

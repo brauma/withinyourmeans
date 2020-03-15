@@ -47,6 +47,11 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
+        expenses = myDb.getExpenses();
+
+        adapter = new RVAdapter(this, expenses);
+        recyclerView.setAdapter(adapter);
+
         // Floating button on the bottom of the screen - > opens new activity for data insertion
         fab = (FloatingActionButton) findViewById(R.id.floating_action_button);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -57,10 +62,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        expenses = myDb.getExpenses();
-
-        adapter = new RVAdapter(this, expenses);
-        recyclerView.setAdapter(adapter);
 
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
 
