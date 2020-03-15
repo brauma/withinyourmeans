@@ -14,11 +14,12 @@
 
     <string-array name="category">
         <item>Food</item>
+        <item>Unhealthy Food</item>
+        <item>Alcohol</item>
+        <item>Smoking</item>
+        <item>Entertainment</item>
         <item>Bill</item>
         <item>Rent</item>
-        <item>Alcohol</item>
-        <item>Tobacco</item>
-        <item>Unhealthy Food</item>
         <item>Clothing</item>
     </string-array>
 </resources>

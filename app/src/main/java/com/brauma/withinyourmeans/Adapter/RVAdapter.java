@@ -108,11 +108,14 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder> {
             case "Clothing":
                 cardView.setCardBackgroundColor(cardView.getResources().getColor(R.color.colorClothing));
                 break;
-            case "Tobacco":
+            case "Smoking":
                 cardView.setCardBackgroundColor(cardView.getResources().getColor(R.color.colorSmoking));
                 break;
             case "Rent":
                 cardView.setCardBackgroundColor(cardView.getResources().getColor(R.color.colorRent));
+                break;
+            case "Entertainment":
+                cardView.setCardBackgroundColor(cardView.getResources().getColor(R.color.colorEntertainment));
                 break;
             default:
                 break;
@@ -124,9 +127,10 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder> {
             case "Bill": return R.drawable.ic_bill;
             case "Rent": return R.drawable.ic_rent;
             case "Alcohol": return R.drawable.ic_booze;
-            case "Tobacco": return R.drawable.ic_smoking;
+            case "Smoking": return R.drawable.ic_smoking;
             case "Unhealthy Food": return R.drawable.ic_bad_food;
             case "Clothing": return R.drawable.ic_clothing;
+            case "Entertainment": return R.drawable.ic_entertainment;
             default: return R.drawable.ic_food;
         }
     }

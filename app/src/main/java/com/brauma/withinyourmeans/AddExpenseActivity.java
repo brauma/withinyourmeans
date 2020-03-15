@@ -18,6 +18,7 @@ import com.brauma.withinyourmeans.Model.Expense;
 import com.brauma.withinyourmeans.SQL.DatabaseHandler;
 
 import java.util.Calendar;
+
 import com.brauma.withinyourmeans.Utility.DateHelper;
 
 public class AddExpenseActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
@@ -114,6 +115,6 @@ public class AddExpenseActivity extends AppCompatActivity implements DatePickerD
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         TextView dateText = (TextView) findViewById(R.id.date_textview);
-        dateText.setText(year+"-"+month+"-"+dayOfMonth);
+        dateText.setText(year + "-" + month + "-" + dayOfMonth);
     }
 }

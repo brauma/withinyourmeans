@@ -10,15 +10,16 @@
     <string name="error_amount">Meg kell adnod összeget</string>
     <string name="error_name">Meg kell adnod megnevezést</string>
     <string name="error_database">Váratlan adatbázis hiba</string>
-    <string name="date_text">Bökj ide, hogy megváltoztasd a dátumot máról</string>
+    <string name="date_text">Bökj ide, hogy megváltoztasd a dátumot a mai napról</string>
 
     <string-array name="category">
         <item>Étel</item>
-        <item>Számla</item>
-        <item>Bérleti díj</item>
+        <item>Nasi</item>
         <item>Alkohol</item>
         <item>Dohány</item>
-        <item>Nasi</item>
-        <item>Ruházat</item>
+        <item>Szórakozás</item>
+        <item>Számla</item>
+        <item>Bérleti díj</item>
+        <item>Ruha</item>
     </string-array>
 </resources>
