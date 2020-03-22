@@ -1,4 +1,4 @@
-package com.brauma.withinyourmeans;
+package com.brauma.withinyourmeans.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -12,12 +12,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import com.brauma.withinyourmeans.Adapter.RVAdapter;
+import com.brauma.withinyourmeans.Model.Category;
 import com.brauma.withinyourmeans.Model.Expense;
+import com.brauma.withinyourmeans.R;
 import com.brauma.withinyourmeans.SQL.DatabaseHandler;
+import com.brauma.withinyourmeans.View.BarIndicatorView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -43,20 +47,46 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         myDb = new DatabaseHandler(this);
-
         myOnClickListener = new MyOnClickListener(this);
-
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         expenses = myDb.getExpenses();
 
-        adapter = new RVAdapter(this, expenses);
-        recyclerView.setAdapter(adapter);
+        initBarIndicatorView();
+        initRecycleView();
+        initSwipeAction();
+        initFAB();
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        adapter.swapDataSets(myDb.getExpenses());
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id){
+            case R.id.change_month_item:
+                //TODO: change month dialog window + function
+                return true;
+            case R.id.add_category_item:
+                Intent intent = new Intent(MainActivity.this, AddCategoryActivity.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void initFAB() {
         // Floating button on the bottom of the screen - > opens new activity for data insertion
         fab = (FloatingActionButton) findViewById(R.id.floating_action_button);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -66,8 +96,9 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(myIntent);
             }
         });
+    }
 
-
+    private void initSwipeAction() {
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
 
             @Override
@@ -77,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
-                myDb.deleteData(expenses.get(viewHolder.getAdapterPosition()));
+                myDb.deleteExpense(expenses.get(viewHolder.getAdapterPosition()));
 
                 Log.e("ERROR", String.valueOf(viewHolder.getAdapterPosition()));
                 expenses.remove(viewHolder.getAdapterPosition());
@@ -92,19 +123,23 @@ public class MainActivity extends AppCompatActivity {
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
+
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        adapter.swapDataSets(myDb.getExpenses());
+    private void initRecycleView() {
+        recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        adapter = new RVAdapter(this, expenses);
+        recyclerView.setAdapter(adapter);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+    private void initBarIndicatorView() {
+        BarIndicatorView barIndicatorView = (BarIndicatorView) findViewById(R.id.Barindicator);
+
+        //TODO initialize Bar indicator
+
     }
 
     // This runs when you tap on an item on the list

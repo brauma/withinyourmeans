@@ -11,9 +11,11 @@ import android.widget.TextView;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.brauma.withinyourmeans.MainActivity;
+import com.brauma.withinyourmeans.Activity.MainActivity;
+import com.brauma.withinyourmeans.Model.Category;
 import com.brauma.withinyourmeans.Model.Expense;
 import com.brauma.withinyourmeans.R;
+import com.brauma.withinyourmeans.SQL.DatabaseHandler;
 import com.brauma.withinyourmeans.Utility.DateHelper;
 
 import java.util.ArrayList;
@@ -22,16 +24,25 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder> {
 
     private ArrayList<Expense> dataSet;
     private Context context;
+    private DatabaseHandler myDb;
+    private ArrayList<Category> categories;
 
     public RVAdapter(Context context, ArrayList<Expense> data) {
         this.context = context;
         this.dataSet = data;
+        myDb = new DatabaseHandler(context);
+        categories = myDb.getCategories();
     }
 
     public void swapDataSets(ArrayList<Expense> data) {
         // clear + addAll fixes indexarrayoutofbounds exception on deleting last element in the list
         this.dataSet.clear();
         this.dataSet.addAll(data);
+
+        // this might be overkill
+        this.categories.clear();
+        this.categories = myDb.getCategories();
+
         //this.dataSet = data;
         notifyDataSetChanged();
     }
@@ -74,15 +85,19 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder> {
         ImageView categoryIcon = holder.categoryIcon;
         CardView cardView = holder.cardView;
 
-
         tvAmount.setText(String.format("%d Ft", dataSet.get(listPosition).get_amount()));
         tvName.setText(dataSet.get(listPosition).get_name());
         tvDate.setText(DateHelper.epochToStrDate(dataSet.get(listPosition).get_date()));
-        Log.e("DATE EPOCH", String.valueOf(dataSet.get(listPosition).get_date()));
-        Log.e("DATE STRING", DateHelper.epochToStrDate(dataSet.get(listPosition).get_date()));
-        categoryIcon.setImageResource(getCategoryIcon(dataSet.get(listPosition).get_category()));
 
-        setBackgroundColorByCategory(cardView, dataSet.get(listPosition).get_category());
+        String category = dataSet.get(listPosition).get_category();
+
+        for (int i = 0; i < categories.size(); i++){
+            if(categories.get(i).get_name().equals(category)){
+                categoryIcon.setImageResource(categories.get(i).get_icon());
+                cardView.setCardBackgroundColor(Integer.parseInt(categories.get(i).get_color()));
+                break;
+            }
+        }
 
     }
 
@@ -91,47 +106,4 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder> {
         return dataSet.size();
     }
 
-    private void setBackgroundColorByCategory(CardView cardView, String category){
-        switch (category) {
-            case "Food":
-                cardView.setCardBackgroundColor(cardView.getResources().getColor(R.color.colorFood));
-                break;
-            case "Unhealthy Food":
-                cardView.setCardBackgroundColor(cardView.getResources().getColor(R.color.colorBadFood));
-                break;
-            case "Bill":
-                cardView.setCardBackgroundColor(cardView.getResources().getColor(R.color.colorBill));
-                break;
-            case "Alcohol":
-                cardView.setCardBackgroundColor(cardView.getResources().getColor(R.color.colorBooze));
-                break;
-            case "Clothing":
-                cardView.setCardBackgroundColor(cardView.getResources().getColor(R.color.colorClothing));
-                break;
-            case "Smoking":
-                cardView.setCardBackgroundColor(cardView.getResources().getColor(R.color.colorSmoking));
-                break;
-            case "Rent":
-                cardView.setCardBackgroundColor(cardView.getResources().getColor(R.color.colorRent));
-                break;
-            case "Entertainment":
-                cardView.setCardBackgroundColor(cardView.getResources().getColor(R.color.colorEntertainment));
-                break;
-            default:
-                break;
-        }
-    }
-
-    private Integer getCategoryIcon(String category){
-        switch(category){
-            case "Bill": return R.drawable.ic_bill;
-            case "Rent": return R.drawable.ic_rent;
-            case "Alcohol": return R.drawable.ic_booze;
-            case "Smoking": return R.drawable.ic_smoking;
-            case "Unhealthy Food": return R.drawable.ic_bad_food;
-            case "Clothing": return R.drawable.ic_clothing;
-            case "Entertainment": return R.drawable.ic_entertainment;
-            default: return R.drawable.ic_food;
-        }
-    }
 }

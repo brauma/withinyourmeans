@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">Within Your Means</string>
     <string name="add_expense">Add Expense</string>
+    <string name="add_category">Add Category</string>
     <string name="add_button_text">Add</string>
     <string name="lbl_amount">Amount</string>
+    <string name="lbl_color">Color</string>
     <string name="lbl_name">Name</string>
     <string name="lbl_description">Date</string>
     <string name="lbl_category">Category</string>
@@ -11,6 +13,9 @@
     <string name="error_name">You have to specify a name</string>
     <string name="error_database">Unexpected error with the database</string>
     <string name="date_text">Tap here to change date from today</string>
+    <string name="ok">Okay</string>
+    <string name="cancel">Cancel</string>
+    <string name="lbl_icon">Icon</string>
 
     <string-array name="category">
         <item>Food</item>

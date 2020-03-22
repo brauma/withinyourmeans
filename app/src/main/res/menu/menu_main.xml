@@ -2,9 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".MainActivity">
+    tools:context=".Activity.MainActivity">
 
     <item  android:id="@+id/change_month_item"
         android:title="Change month"
+        app:showAsAction="withText"/>
+
+    <item  android:id="@+id/add_category_item"
+        android:title="@string/add_category"
         app:showAsAction="withText"/>
 </menu>

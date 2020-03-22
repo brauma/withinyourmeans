@@ -1,4 +1,4 @@
-package com.brauma.withinyourmeans;
+package com.brauma.withinyourmeans.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,9 +14,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.brauma.withinyourmeans.Model.Category;
 import com.brauma.withinyourmeans.Model.Expense;
+import com.brauma.withinyourmeans.R;
 import com.brauma.withinyourmeans.SQL.DatabaseHandler;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import com.brauma.withinyourmeans.Utility.DateHelper;
@@ -24,16 +27,23 @@ import com.brauma.withinyourmeans.Utility.DateHelper;
 public class AddExpenseActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     private DatabaseHandler myDb;
 
+    private static ArrayList<Category> categories;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.new_data_activity);
-        final Spinner spinner = (Spinner) findViewById(R.id.spinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.category, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        setContentView(R.layout.new_expense_activity);
 
         myDb = new DatabaseHandler(this);
+        categories = myDb.getCategories();
+        ArrayList<String> cat = createArrayListFromObjects();
+
+        final Spinner spinner = (Spinner) findViewById(R.id.spinner);
+
+        //ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.category, android.R.layout.simple_spinner_item);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, cat);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
 
         TextView dateText = (TextView) findViewById(R.id.date_textview);
 
@@ -87,7 +97,7 @@ public class AddExpenseActivity extends AppCompatActivity implements DatePickerD
 
                 Expense e = new Expense(amount, name, category, date);
 
-                boolean success = myDb.insertData(e);
+                boolean success = myDb.insertExpense(e);
 
                 if (success) {
                     Log.e("DB", "sikerült");
@@ -99,6 +109,14 @@ public class AddExpenseActivity extends AppCompatActivity implements DatePickerD
 
             }
         });
+    }
+
+    private ArrayList<String> createArrayListFromObjects() {
+        ArrayList<String> result = new ArrayList<>();
+        for(int i = 0; i < categories.size(); i++){
+            result.add(categories.get(i).get_name());
+        }
+        return result;
     }
 
     private void showDatePickerDialog() {

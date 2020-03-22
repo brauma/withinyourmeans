@@ -9,11 +9,11 @@
         android:roundIcon="@mipmap/ic_my_own_launcher_second_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddExpenseActivity"
-            android:label="Add Expense">
-
-        </activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".Activity.AddCategoryActivity"></activity>
+        <activity
+            android:name=".Activity.AddExpenseActivity"
+            android:label="Add Expense"></activity>
+        <activity android:name=".Activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
