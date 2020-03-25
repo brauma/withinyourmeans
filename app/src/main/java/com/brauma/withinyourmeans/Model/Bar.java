@@ -1,8 +1,12 @@
-package com.brauma.withinyourmeans.View;
+package com.brauma.withinyourmeans.Model;
 
 public class Bar implements Comparable<Bar>{
     private int color;
     private Integer value;
+    private String name;
+
+    public Bar() {
+    }
 
     public Bar(Integer value, int color) {
         this.color = color;
@@ -29,5 +33,13 @@ public class Bar implements Comparable<Bar>{
 
     public void setValue(int value) {
         this.value = value;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

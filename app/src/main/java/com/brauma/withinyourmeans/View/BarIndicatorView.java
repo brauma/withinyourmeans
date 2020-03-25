@@ -6,11 +6,13 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
+import com.brauma.withinyourmeans.Model.Bar;
 import com.brauma.withinyourmeans.R;
 
 import java.util.ArrayList;
@@ -49,6 +51,7 @@ public class BarIndicatorView extends View {
 
         paint.setColor(mainBarColor);
         paint.setStyle(Paint.Style.FILL);
+        Log.e("BAR", String.valueOf(bars.size()));
 
         canvas.drawRect(0, 0, width, height, paint);
 
@@ -56,8 +59,7 @@ public class BarIndicatorView extends View {
             double ratio = (double)(bars.get(i).getValue()) / (double)(mainValue);
             int barWidth = (int) (ratio * (double) width);
 
-            int color = ContextCompat.getColor(context, bars.get(i).getColor());
-            paint.setColor(color);
+            paint.setColor(bars.get(i).getColor());
 
             canvas.drawRect(currentX, 0, barWidth + currentX, height, paint);
 

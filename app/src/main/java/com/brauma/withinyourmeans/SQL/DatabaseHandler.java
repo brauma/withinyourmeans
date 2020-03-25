@@ -5,8 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.widget.ArrayAdapter;
+import android.util.Log;
 
+import com.brauma.withinyourmeans.Model.Bar;
 import com.brauma.withinyourmeans.Model.Category;
 import com.brauma.withinyourmeans.Model.Expense;
 
@@ -150,10 +151,60 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return expensesList;
     }
 
-    //TODO ezt valahogy megcsinálni
-    public int getSumByDate(int year, int month){
+    public ArrayList<Expense> getExpensesBetweenDates(long from, long to){
+        ArrayList<Expense> expensesList = new ArrayList<Expense>();
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + TABLE_EXPENSES + " WHERE " + KEY_DATE + " BETWEEN " + from + " AND " + to;
 
-        String selectQuery = "SELECT SUM(" + KEY_AMOUNT + ") FROM " + TABLE_EXPENSES + " WHERE ";
-        return 0;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                Expense expense = new Expense();
+                expense.set_id(Integer.parseInt(cursor.getString(0)));
+                expense.set_name(cursor.getString(1));
+                expense.set_category(cursor.getString(2));
+                expense.set_amount(cursor.getInt(3));
+                expense.set_date(cursor.getLong(4));
+
+                // Adding contact to list
+                expensesList.add(expense);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        Log.e("DEBUG", String.valueOf(expensesList.size()));
+        // return contact list
+        return expensesList;
     }
+
+    public ArrayList<Bar> getCategorySumsBetweenDates(long from, long to){
+        ArrayList<Bar> sums = new ArrayList<>();
+        // Select All Query
+        String selectQuery = "SELECT SUM(" + KEY_AMOUNT + "), " + KEY_CATEGORY + ", " + KEY_COLOR + " FROM " + TABLE_EXPENSES + ", " + TABLE_CATEGORIES
+                + " WHERE " + KEY_DATE + " BETWEEN " + from
+                + " AND " + to + " AND " + TABLE_EXPENSES + "." + KEY_CATEGORY + " = " + TABLE_CATEGORIES + "." + KEY_NAME + " GROUP BY " + KEY_CATEGORY;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                Bar sum = new Bar();
+                sum.setValue(Integer.parseInt(cursor.getString(0)));
+                sum.setName(cursor.getString(1));
+                sum.setColor(Integer.parseInt(cursor.getString(2)));
+
+                sums.add(sum);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+
+        return sums;
+    }
+
 }

@@ -21,10 +21,14 @@ import com.brauma.withinyourmeans.Model.Category;
 import com.brauma.withinyourmeans.Model.Expense;
 import com.brauma.withinyourmeans.R;
 import com.brauma.withinyourmeans.SQL.DatabaseHandler;
+import com.brauma.withinyourmeans.Utility.DateHelper;
+import com.brauma.withinyourmeans.Utility.TimeIntervall;
 import com.brauma.withinyourmeans.View.BarIndicatorView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
 
     public static View.OnClickListener myOnClickListener;
     private static FloatingActionButton fab;
+    private BarIndicatorView barIndicatorView;
+    private long from, to;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +55,14 @@ public class MainActivity extends AppCompatActivity {
         myDb = new DatabaseHandler(this);
         myOnClickListener = new MyOnClickListener(this);
 
-        expenses = myDb.getExpenses();
+        TimeIntervall currentMonth = DateHelper.getMonth(Calendar.getInstance().getTime());
+
+        from = currentMonth.getFrom();
+        to = currentMonth.getTo();
+
+        expenses = myDb.getExpensesBetweenDates(from, to);
+
+        Log.e("FROMTO", String.valueOf(expenses.size()));
 
         initBarIndicatorView();
         initRecycleView();
@@ -60,7 +73,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        adapter.swapDataSets(myDb.getExpenses());
+        adapter.swapDataSets(myDb.getExpensesBetweenDates(from, to));
+        barIndicatorView.setBars(myDb.getCategorySumsBetweenDates(from, to));
     }
 
     @Override
@@ -113,6 +127,8 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("ERROR", String.valueOf(viewHolder.getAdapterPosition()));
                 expenses.remove(viewHolder.getAdapterPosition());
                 adapter.swapDataSets(myDb.getExpenses());
+                barIndicatorView.setBars(myDb.getCategorySumsBetweenDates(from, to));
+
             }
 
             @Override
@@ -127,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initRecycleView() {
-        recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+        recyclerView = findViewById(R.id.my_recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -136,10 +152,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initBarIndicatorView() {
-        BarIndicatorView barIndicatorView = (BarIndicatorView) findViewById(R.id.Barindicator);
-
-        //TODO initialize Bar indicator
-
+        barIndicatorView = findViewById(R.id.Barindicator);
+        barIndicatorView.setMainValue(70000);
+        barIndicatorView.setBars(myDb.getCategorySumsBetweenDates(from, to));
     }
 
     // This runs when you tap on an item on the list

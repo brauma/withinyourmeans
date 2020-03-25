@@ -40,7 +40,6 @@ public class AddExpenseActivity extends AppCompatActivity implements DatePickerD
 
         final Spinner spinner = (Spinner) findViewById(R.id.spinner);
 
-        //ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.category, android.R.layout.simple_spinner_item);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, cat);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
@@ -133,6 +132,7 @@ public class AddExpenseActivity extends AppCompatActivity implements DatePickerD
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         TextView dateText = (TextView) findViewById(R.id.date_textview);
-        dateText.setText(year + "-" + month + "-" + dayOfMonth);
+        // month + 1 because the dialog counts months from 0 to 11
+        dateText.setText(year + "-" + (month + 1)  + "-" + dayOfMonth);
     }
 }

@@ -1,7 +1,6 @@
 package com.brauma.withinyourmeans.Adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -98,7 +97,6 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder> {
                 break;
             }
         }
-
     }
 
     @Override
