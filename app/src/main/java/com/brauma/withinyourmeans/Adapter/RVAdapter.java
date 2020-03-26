@@ -1,6 +1,8 @@
 package com.brauma.withinyourmeans.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,7 @@ import com.brauma.withinyourmeans.Model.Expense;
 import com.brauma.withinyourmeans.R;
 import com.brauma.withinyourmeans.SQL.DatabaseHandler;
 import com.brauma.withinyourmeans.Utility.DateHelper;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
@@ -25,12 +28,45 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder> {
     private Context context;
     private DatabaseHandler myDb;
     private ArrayList<Category> categories;
+    private Expense recentlyDeleted;
+    private int recentlyDeletedPosition;
 
     public RVAdapter(Context context, ArrayList<Expense> data) {
         this.context = context;
         this.dataSet = data;
         myDb = new DatabaseHandler(context);
         categories = myDb.getCategories();
+    }
+
+    public void deleteItem(int position){
+        recentlyDeleted = dataSet.get(position);
+        recentlyDeletedPosition = position;
+        dataSet.remove(position);
+        myDb.deleteExpense(recentlyDeleted);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, dataSet.size());
+        showUndoSnackbar();
+    }
+
+    private void showUndoSnackbar() {
+        View view = ((Activity) context).findViewById(R.id.my_recycler_view);
+        Snackbar snackbar = Snackbar.make(view, R.string.snack_bar_text,
+                Snackbar.LENGTH_LONG);
+        snackbar.setAction(R.string.snack_bar_undo, new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                undoDelete();
+            }
+        });
+        snackbar.show();
+    }
+
+    private void undoDelete() {
+        dataSet.add(recentlyDeletedPosition,
+                recentlyDeleted);
+        myDb.insertExpense(recentlyDeleted);
+        notifyItemInserted(recentlyDeletedPosition);
+        //notifyItemRangeChanged(recentlyDeletedPosition, dataSet.size());
     }
 
     public void swapDataSets(ArrayList<Expense> data) {
@@ -41,9 +77,6 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder> {
         // this might be overkill
         this.categories.clear();
         this.categories = myDb.getCategories();
-
-        //this.dataSet = data;
-        notifyDataSetChanged();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {

@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
 
     private DatabaseHandler myDb;
     private RVAdapter adapter;
-    private RecyclerView.LayoutManager layoutManager;
     private static RecyclerView recyclerView;
 
     private static ArrayList<Expense> expenses;
@@ -75,6 +74,12 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         adapter.swapDataSets(myDb.getExpensesBetweenDates(from, to));
         barIndicatorView.setBars(myDb.getCategorySumsBetweenDates(from, to));
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
     }
 
     @Override
@@ -122,13 +127,8 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
-                myDb.deleteExpense(expenses.get(viewHolder.getAdapterPosition()));
-
-                Log.e("ERROR", String.valueOf(viewHolder.getAdapterPosition()));
-                expenses.remove(viewHolder.getAdapterPosition());
-                adapter.swapDataSets(myDb.getExpenses());
-                barIndicatorView.setBars(myDb.getCategorySumsBetweenDates(from, to));
-
+                int position = viewHolder.getAdapterPosition();
+                adapter.deleteItem(position);
             }
 
             @Override

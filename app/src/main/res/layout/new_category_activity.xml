@@ -45,6 +45,8 @@
                     android:layout_marginTop="30dp"
                     android:layout_marginStart="25dp"
                     android:layout_marginLeft="25dp"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
                     />
 
                 <TextView
@@ -57,6 +59,8 @@
                     android:layout_marginTop="30dp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginStart="5dp"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
                     />
 
                 <ImageView
@@ -71,6 +75,8 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:background="@android:color/darker_gray"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
                     />
 
                 <ImageView
@@ -80,7 +86,11 @@
                     android:layout_width="128dp"
                     android:layout_height="128dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginEnd="20dp"
                     android:padding="5dp"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
                     />
 
             </GridLayout>

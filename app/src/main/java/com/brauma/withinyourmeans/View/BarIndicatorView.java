@@ -40,7 +40,6 @@ public class BarIndicatorView extends View {
         } finally {
             a.recycle();
         }
-
     }
 
     @Override

@@ -16,6 +16,8 @@
     <string name="ok">Okay</string>
     <string name="cancel">Cancel</string>
     <string name="lbl_icon">Icon</string>
+    <string name="snack_bar_text">Expense deleted</string>
+    <string name="snack_bar_undo">Undo</string>
 
     <string-array name="category">
         <item>Food</item>

@@ -26,14 +26,15 @@
 
     <com.brauma.withinyourmeans.View.BarIndicatorView
         android:id="@+id/Barindicator"
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
         android:layout_height="10dp"
         android:layout_below="@+id/appbar"
         android:layout_centerHorizontal="true"
+        android:layout_marginLeft="6dp"
         android:layout_marginTop="10dp"
+        android:layout_marginRight="6dp"
         android:layout_marginBottom="5dp"
-        app:mainBarColor="@android:color/darker_gray"
-        />
+        app:mainBarColor="@android:color/darker_gray" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/my_recycler_view"

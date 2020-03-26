@@ -1,13 +1,12 @@
 package com.brauma.withinyourmeans.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.brauma.withinyourmeans.R;
 
@@ -15,10 +14,10 @@ public class ImageAdapter extends BaseAdapter {
 
     private Context mContext;
 
-    public Integer[] icons;
+    private Integer[] icons;
 
     public ImageAdapter(Context c, Integer[] icons) {
-        mContext = c;
+        this.mContext = c;
         this.icons = icons;
     }
 
@@ -44,10 +43,8 @@ public class ImageAdapter extends BaseAdapter {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         if (convertView == null) {
-
-            grid = new View(mContext);
             grid = inflater.inflate(R.layout.icon_item, null);
-            ImageView imageView = (ImageView)grid.findViewById(R.id.icon_grid_item);
+            ImageView imageView = grid.findViewById(R.id.icon_grid_item);
             imageView.setImageResource(icons[position]);
         } else {
             grid = (View) convertView;
