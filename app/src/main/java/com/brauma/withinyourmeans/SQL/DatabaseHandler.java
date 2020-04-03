@@ -125,6 +125,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void updateBalance(Balance balance){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues cv = new ContentValues();
+        cv.put(KEY_BUDGET, balance.getBudget()); //These Fields should be your String values of actual column names
+        cv.put(KEY_SPENT, balance.getSpent());
+        cv.put(KEY_DATE, balance.getDate());
+
+        db.update(TABLE_BALANCE, cv, KEY_DATE + "=" + balance.getDate(), null);
+
+    }
+
     private Integer getCategoryIdByName(String name){
         Integer id = null;
         String selectQuery = "SELECT " + KEY_ID + " FROM " + TABLE_CATEGORIES + " WHERE " + KEY_NAME + " = \"" + name + "\"";

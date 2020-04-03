@@ -27,7 +27,7 @@
     <com.brauma.withinyourmeans.View.BarIndicatorView
         android:id="@+id/Barindicator"
         android:layout_width="match_parent"
-        android:layout_height="10dp"
+        android:layout_height="15dp"
         android:layout_below="@+id/appbar"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="6dp"
