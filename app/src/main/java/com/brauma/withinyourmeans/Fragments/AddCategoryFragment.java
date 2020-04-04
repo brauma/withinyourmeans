@@ -1,15 +1,16 @@
-package com.brauma.withinyourmeans.Activity;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.brauma.withinyourmeans.Fragments;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.media.Image;
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -19,14 +20,13 @@ import com.brauma.withinyourmeans.Adapter.ImageAdapter;
 import com.brauma.withinyourmeans.Model.Category;
 import com.brauma.withinyourmeans.R;
 import com.brauma.withinyourmeans.SQL.DatabaseHandler;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.skydoves.colorpickerview.ColorEnvelope;
 import com.skydoves.colorpickerview.ColorPickerDialog;
 import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class AddCategoryActivity extends AppCompatActivity {
+public class AddCategoryFragment extends Fragment {
+    private View view;
 
     ImageView color;
     ImageView icon;
@@ -46,22 +46,31 @@ public class AddCategoryActivity extends AppCompatActivity {
 
     private DatabaseHandler myDb;
 
+    public AddCategoryFragment() {
+        // Required empty public constructor
+    }
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.new_category_activity);
+    }
 
-        color = findViewById(R.id.color_imageView);
-        icon = findViewById(R.id.icon_imageView);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        view = inflater.inflate(R.layout.fragment_add_category, container, false);
 
-        myDb = new DatabaseHandler(this);
+        color = view.findViewById(R.id.color_imageView);
+        icon = view.findViewById(R.id.icon_imageView);
+
+        myDb = new DatabaseHandler(getActivity());
 
         //color.setBackgroundColor(Color.BLACK);
         icon.setBackgroundColor(Color.BLACK);
 
-        final TextView name = findViewById(R.id.name_textview);
-
-        Button button = findViewById(R.id.button);
+        final TextView name = view.findViewById(R.id.name_textview);
 
         color.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,7 +86,10 @@ public class AddCategoryActivity extends AppCompatActivity {
             }
         });
 
-        button.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton fab = getActivity().findViewById(R.id.fab);
+        fab.setImageResource(R.drawable.ic_check_icon);
+
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Category category = new Category();
@@ -86,9 +98,11 @@ public class AddCategoryActivity extends AppCompatActivity {
                 category.set_color(chosenColor);
 
                 myDb.insertCategory(category);
-                finish();
+                getActivity().getSupportFragmentManager().popBackStack();
             }
         });
+
+        return view;
     }
 
     private void setChosenIcon(int position){
@@ -98,14 +112,14 @@ public class AddCategoryActivity extends AppCompatActivity {
 
     private void showIconPickerDialog() {
         // Prepare grid view
-        GridView gridView = new GridView(this);
-        final ImageAdapter imageAdapter = new ImageAdapter(this, icons);
+        GridView gridView = new GridView(getActivity());
+        final ImageAdapter imageAdapter = new ImageAdapter(getActivity(), icons);
         gridView.setAdapter(imageAdapter);
         gridView.setNumColumns(3);
 
 
         // Set grid view to alertDialog
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(gridView);
         builder.setTitle("Choose icon");
         final AlertDialog dialog = builder.create();
@@ -122,7 +136,7 @@ public class AddCategoryActivity extends AppCompatActivity {
     }
 
     private void showColorPickerDialog() {
-        new ColorPickerDialog.Builder(this, AlertDialog.THEME_DEVICE_DEFAULT_DARK)
+        new ColorPickerDialog.Builder(getActivity(), AlertDialog.THEME_DEVICE_DEFAULT_DARK)
                 .setTitle("Choose category color")
                 .setPreferenceName("MyColorPickerDialog")
                 .setPositiveButton(getString(R.string.ok),
@@ -144,4 +158,6 @@ public class AddCategoryActivity extends AppCompatActivity {
                 .attachBrightnessSlideBar(true)  // default is true. If false, do not show the BrightnessSlideBar.
                 .show();
     }
+
+
 }

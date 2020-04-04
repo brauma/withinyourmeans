@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
->
+    >
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card_view"
@@ -27,49 +27,25 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/cat_icon"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_margin="15dp"
+                android:layout_margin="20dp"
                 android:src="@drawable/ic_food" />
 
             <TextView
-                android:id="@+id/amount"
+                android:id="@+id/category_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#fff"
                 android:layout_marginStart="20dp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="25dp"
                 android:includeFontPadding="false"
-                android:textSize="25sp" />
-
-            <TextView
-                android:id="@+id/name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/amount"
-                android:layout_marginStart="20dp"
-                android:layout_marginLeft="20dp"
-                android:includeFontPadding="false"
-                android:textSize="16sp"
-                android:textColor="#fff"
-                />
-
-            <TextView
-                android:id="@+id/date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#bbb"
-                android:layout_below="@id/name"
-                android:layout_marginTop="13dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginLeft="20dp"
-                android:includeFontPadding="false"
-                android:textSize="12sp"
-                />
+                android:textSize="25sp"
+                android:text="temp"/>
 
         </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>

@@ -3,6 +3,7 @@
     <color name="colorPrimary">#2a4158</color>
     <color name="colorPrimaryDark">#22272c</color>
     <color name="colorAccent">#e4eaea</color>
+    <color name="secondary">#ffbb00</color>
     <color name="colorBackground">#FFFFFF</color>
     <color name="colorFood">#2e4600</color>
     <color name="colorBadFood">#ae6dcc</color>
@@ -11,5 +12,7 @@
     <color name="colorClothing">#46211a</color>
     <color name="colorSmoking">#a43820</color>
     <color name="colorBooze">#ba5536</color>
+    <color name="onSecondary">#ffffff</color>
+
     <color name="colorEntertainment">#225862</color>
 </resources>
