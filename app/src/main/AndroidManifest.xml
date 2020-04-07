@@ -15,11 +15,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.AddCategoryActivity" />
-        <activity
-            android:name=".Activity.AddExpenseActivity"
-            android:label="Add Expense" />
-        <activity android:name=".Activity.MainActivity">
+        <activity android:name=".Activity.MainActivity"
+            android:windowSoftInputMode="adjustPan">
 
         </activity>
     </application>

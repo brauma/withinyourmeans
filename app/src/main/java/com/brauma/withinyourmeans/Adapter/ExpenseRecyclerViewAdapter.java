@@ -2,7 +2,6 @@ package com.brauma.withinyourmeans.Adapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,6 @@ import android.widget.TextView;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.brauma.withinyourmeans.Activity.MainActivity;
 import com.brauma.withinyourmeans.Model.Category;
 import com.brauma.withinyourmeans.Model.Expense;
 import com.brauma.withinyourmeans.R;
@@ -22,7 +20,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
-public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder> {
+public class ExpenseRecyclerViewAdapter extends RecyclerView.Adapter<ExpenseRecyclerViewAdapter.MyViewHolder> {
 
     private ArrayList<Expense> dataSet;
     private Context context;
@@ -31,7 +29,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder> {
     private Expense recentlyDeleted;
     private int recentlyDeletedPosition;
 
-    public RVAdapter(Context context, ArrayList<Expense> data) {
+    public ExpenseRecyclerViewAdapter(Context context, ArrayList<Expense> data) {
         this.context = context;
         this.dataSet = data;
         myDb = new DatabaseHandler(context);
@@ -102,7 +100,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder> {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.row, parent, false);
 
-        view.setOnClickListener(MainActivity.myOnClickListener);
+        //view.setOnClickListener(MainActivity.myOnClickListener);
 
         MyViewHolder myViewHolder = new MyViewHolder(view);
         return myViewHolder;
